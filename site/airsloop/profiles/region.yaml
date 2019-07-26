@@ -41,6 +41,22 @@ metadata:
     #    # your ssh key
     #    name: MY_USER_ssh_public_key
     #    path: .
+    - dest:
+        # Increment the list index
+        path: .authorized_keys[1]
+      src:
+        schema: deckhand/PublicKey/v1
+        # your ssh key
+        name: kkalynovskyi
+        path: .
+    - dest:
+        # Increment the list index
+        path: .authorized_keys[3]
+      src:
+        schema: deckhand/PublicKey/v1
+        # your ssh key
+        name: dukov
+        path: .
 data:
   tag_definitions: []
   # This is the list of SSH keys which MaaS will register for the built-in

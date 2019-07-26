@@ -42,7 +42,7 @@ data:
 
   storage:
     physical_devices:
-      bootdisk:
+      sda:
         labels:
           bootdrive: 'true'
         partitions:

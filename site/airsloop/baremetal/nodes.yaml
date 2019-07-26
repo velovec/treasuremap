@@ -42,17 +42,17 @@ data:
   # NEWSITE-CHANGEME: The next node's IPv4 addressing
   addressing:
     - network: oob
-      address: 10.22.104.22
+      address: 5.43.229.106
     - network: pxe
-      address: 10.22.70.22
+      address: 192.168.70.22
     - network: oam
-      address: 10.22.71.22
+      address: 192.168.71.22
     - network: calico
-      address: 10.22.72.22
+      address: 192.168.72.22
     - network: storage
-      address: 10.22.73.22
+      address: 192.168.73.22
     - network: overlay
-      address: 10.22.74.22
+      address: 192.168.74.22
   # NEWSITE-CHANGEME: The next node's host profile
   # This is the third "primary" control plane profile after genesis
   host_profile: compute_r720xd

@@ -48,14 +48,14 @@ data:
           common_name: system:node:airsloop-control-1
           hosts:
             - airsloop-control-1
-            - 10.22.72.21
+            - 192.168.72.21
           groups:
             - system:nodes
         - document_name: kubelet-airsloop-control-1
           common_name: system:node:airsloop-control-1
           hosts:
             - airsloop-control-1
-            - 10.22.72.21
+            - 192.168.72.21
           groups:
             - system:nodes
         - document_name: kubelet-airsloop-control-2
@@ -76,7 +76,7 @@ data:
           common_name: system:node:airsloop-compute-1
           hosts:
             - airsloop-compute-1
-            - 10.22.72.22
+            - 192.168.72.22
           groups:
             - system:nodes
         # End node list
@@ -127,7 +127,7 @@ data:
           common_name: kubernetes-etcd-genesis
           hosts:
             - airsloop-control-1
-            - 10.22.72.21
+            - 192.168.72.21
             - 127.0.0.1
             - localhost
             - kubernetes-etcd.kube-system.svc.cluster.local
@@ -136,7 +136,7 @@ data:
           common_name: kubernetes-etcd-airsloop-control-1
           hosts:
             - airsloop-control-1
-            - 10.22.72.21
+            - 192.168.72.21
             - 127.0.0.1
             - localhost
             - kubernetes-etcd.kube-system.svc.cluster.local
@@ -168,7 +168,7 @@ data:
           common_name: kubernetes-etcd-genesis-peer
           hosts:
             - airsloop-control-1
-            - 10.22.72.21
+            - 192.168.72.21
             - 127.0.0.1
             - localhost
             - kubernetes-etcd.kube-system.svc.cluster.local
@@ -177,7 +177,7 @@ data:
           common_name: kubernetes-etcd-airsloop-control-1-peer
           hosts:
             - airsloop-control-1
-            - 10.22.72.21
+            - 192.168.72.21
             - 127.0.0.1
             - localhost
             - kubernetes-etcd.kube-system.svc.cluster.local
@@ -224,7 +224,7 @@ data:
           common_name: calico-etcd-airsloop-control-1
           hosts:
             - airsloop-control-1
-            - 10.22.72.21
+            - 192.168.72.21
             - 127.0.0.1
             - localhost
             - 10.96.232.136
@@ -256,7 +256,7 @@ data:
           common_name: calico-etcd-airsloop-control-1-peer
           hosts:
             - airsloop-control-1
-            - 10.22.72.21
+            - 192.168.72.21
             - 127.0.0.1
             - localhost
             - 10.96.232.136

@@ -21,7 +21,7 @@ data:
     # bond and VLAN number specified in networks/physical/networks.yaml for the Calico
     # network. E.g. VLAN 22 for the calico network as a member of bond0, you
     # would set "interface=bond0.22" as shown here.
-    ip_autodetection_method: interface=enp67s0f0.72
+    ip_autodetection_method: interface=ens1f1.331
     etcd:
       # etcd service IP address
       service_ip: 10.96.232.136
@@ -53,12 +53,12 @@ data:
     hostname: airsloop-control-1
     # NEWSITE-CHANGEME: Calico IP of the Genesis node. Use the "start" value for
     # the calico network defined in networks/physical/networks.yaml for this IP.
-    ip: 10.22.72.21
+    ip: 192.168.72.21
 
   bootstrap:
     # NEWSITE-CHANGEME: Update with the "start" value/IP of the static range
     # defined for the pxe network in networks/physical/networks.yaml
-    ip: 10.22.70.21
+    ip: 192.168.70.21
 
   kubernetes:
     # K8s API service IP
@@ -92,10 +92,10 @@ data:
   # However if you are in a lab that requires proxy, ensure that these proxy
   # settings are correct and reachable in your environment; otherwise update
   # them with the correct values for your environment.
-  proxy:
-    http: ""
-    https: ""
-    no_proxy: []
+  #proxy:
+  #  http: ""
+  #  https: ""
+  #  no_proxy: []
 
   node_ports:
     drydock_api: 30000
@@ -132,22 +132,22 @@ data:
     ceph:
       # NEWSITE-CHANGEME: CIDRs for Ceph. Update to match the network CIDR
       # used for the `storage` network in networks/physical/networks.yaml
-      public_cidr: '10.22.73.0/24'
-      cluster_cidr: '10.22.73.0/24'
+      public_cidr: '192.168.73.0/24'
+      cluster_cidr: '192.168.73.0/24'
 
   neutron:
     # NEWSITE-CHANGEME: Overlay network for VM traffic. Ensure the bond name and
     # VLAN number are consistent with what's defined for the bond and the overlay
     # network in networks/physical/networks.yaml
-    tunnel_device: 'enp67s0f0.74'
+    tunnel_device: 'ens1f1.333'
     # bond which the overlay is a member of. Ensure the bond name is consistent
     # with the bond assigned to the overlay network in
     # networks/physical/networks.yaml
-    external_iface: 'enp67s0f0'
+    external_iface: 'ens1f1'
 
   openvswitch:
     # bond which the overlay is a member of. Ensure the bond name is consistent
     # with the bond assigned to the overlay network in
     # networks/physical/networks.yaml
-    external_iface: 'enp67s0f0'
+    external_iface: 'ens1f1'
 ...
