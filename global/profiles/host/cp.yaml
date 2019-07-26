@@ -20,7 +20,7 @@ data:
   oob:
     type: 'ipmi'
     network: 'oob'
-    account: 'root'
+    account: 'engineer'
   storage:
     physical_devices:
       sda:

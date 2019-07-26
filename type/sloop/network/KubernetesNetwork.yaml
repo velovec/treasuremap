@@ -77,18 +77,18 @@ metadata:
         path: .etcd.haproxy_port
 
     # proxy
-    - src:
-        schema: pegleg/CommonAddresses/v1
-        name: common-addresses
-        path: .proxy.http
-      dest:
-        path: .proxy.url
-    - src:
-        schema: pegleg/CommonAddresses/v1
-        name: common-addresses
-        path: .proxy.no_proxy
-      dest:
-        path: .proxy.additional_no_proxy
+    #- src:
+    #    schema: pegleg/CommonAddresses/v1
+    #    name: common-addresses
+    #    path: .proxy.http
+    #  dest:
+    #    path: .proxy.url
+    #- src:
+    #    schema: pegleg/CommonAddresses/v1
+    #    name: common-addresses
+    #    path: .proxy.no_proxy
+    #  dest:
+    #    path: .proxy.additional_no_proxy
 
 data:
   dns:
