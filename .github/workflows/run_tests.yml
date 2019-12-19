@@ -1,0 +1,14 @@
+name: Lint
+on:
+  pull_request:
+    branches:
+      - v2_down
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get KubeVal
+      run: ./tools/gate/install-kubeval.sh
+    - name: Run Linter
+      run: ./tools/gate/run-lint.sh
