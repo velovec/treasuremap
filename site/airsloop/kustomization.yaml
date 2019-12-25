@@ -1,0 +1,5 @@
+resources:
+  - ../certs
+  - ../../functions/ephemeral
+transformers:
+  - gotemplater.yaml

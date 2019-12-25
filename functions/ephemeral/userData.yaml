@@ -1,0 +1,78 @@
+---
+apiVersion: airshipit.org/v1alpha1
+kind: UserData
+metadata:
+  name: ephUserData
+spec:
+  write_files:
+  - path: /etc/kubernetes/admin.conf
+    owner: root:root
+    permissions: "0640"
+    content: |
+      apiVersion: v1
+      clusters:
+      - cluster:
+          certificate-authority-data: {{ getTreeByPath "~G_v1_Secret" "ephCA" "data.crt" }}
+          server: https://172.18.164.62:6443
+        name: kubernetes
+      contexts:
+      - context:
+          cluster: kubernetes
+          user: kubernetes-admin
+        name: kubernetes-admin@kubernetes
+      current-context: kubernetes-admin@kubernetes
+      kind: Config
+      preferences: {}
+      users:
+      - name: kubernetes-admin
+        user:
+          client-certificate-data: {{ getTreeByPath "~G_v1_Secret" "ephAdmin" "data.crt" }}
+          client-key-data: {{ getTreeByPath "~G_v1_Secret" "ephAdmin" "data.key" }}
+  - path: /etc/kubernetes/pki/ca.crt
+    encoding: base64
+    owner: root:root
+    permissions: "0640"
+    content: |
+      {{ getTreeByPath "~G_v1_Secret" "ephCA" "data.crt" }}
+  - path: /etc/kubernetes/pki/ca.key
+    encoding: base64
+    owner: root:root
+    permissions: "0600"
+    content: |
+      {{ getTreeByPath "~G_v1_Secret" "ephCA" "data.key" }}
+  - path: /tmp/konfigadm.yml
+    owner: root:root
+    permissions: "0640"
+    content: |
+      kubernetes:
+        version: 1.15.4
+      container_runtime:
+        type: docker
+  - path: /tmp/kubeadm.yaml
+    owner: root:root
+    permissions: "0640"
+    content: |
+      ---
+      apiServer: {}
+      apiVersion: kubeadm.k8s.io/v1beta2
+      controllerManager: {}
+      dns:
+        type: ""
+      etcd: {}
+      kind: ClusterConfiguration
+      networking:
+        podSubnet: 192.168.0.0/24
+      scheduler: {}
+      ---
+      apiVersion: kubeadm.k8s.io/v1beta2
+      kind: InitConfiguration
+      localAPIEndpoint: {}
+      nodeRegistration:
+        ignorePreflightErrors:
+        - SystemVerification
+        taints: []
+  runcmd:
+    - curl -L https://github.com/flanksource/konfigadm/releases/download/v0.4.14/konfigadm -o /usr/local/bin/konfigadm && chmod +x /usr/local/bin/konfigadm
+    - konfigadm apply --config=/tmp/konfigadm.yml
+    - kubeadm init --config /tmp/kubeadm.yaml
+    - kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml

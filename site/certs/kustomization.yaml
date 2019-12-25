@@ -1,0 +1,6 @@
+resources:
+  - certs-ca.yaml
+  - certs-etcd.yaml
+  - certs-proxy.yaml
+  - certs-sa.yaml
+  - certs-admin.yaml

@@ -1,0 +1,33 @@
+---
+apiVersion: airshipit.org/v1alpha1
+kind: NodeNetInterface
+metadata:
+  name: workerNode01
+spec:
+  links:
+    - id: oam0
+      type: phy
+      ethernet_mac_address: 52:54:00:18:6e:50
+      mtu: 1500
+    - id: pxe0
+      type: phy
+      ethernet_mac_address: 52:54:00:a4:46:dc
+      mtu: 1500
+  networks:
+    - id: private-ipv4
+      type: ipv4
+      link: oam0
+      ip_address: 172.18.164.62
+      netmask: 255.255.255.224
+      routes:
+        - network: 0.0.0.0
+          netmask: 0.0.0.0
+          gateway: 172.18.164.33
+    - id: private-ipv4
+      type: ipv4
+      link: pxe0
+      ip_address: 172.22.0.1
+      netmask: 255.255.255.0
+  services:
+      - type: dns
+        address: 8.8.8.8
