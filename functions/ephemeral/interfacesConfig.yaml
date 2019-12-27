@@ -2,7 +2,7 @@
 apiVersion: airshipit.org/v1alpha1
 kind: NodeNetInterface
 metadata:
-  name: workerNode01
+  name: worker-node01
 spec:
   links:
     - id: oam0

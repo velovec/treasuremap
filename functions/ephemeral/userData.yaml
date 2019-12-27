@@ -2,7 +2,7 @@
 apiVersion: airshipit.org/v1alpha1
 kind: UserData
 metadata:
-  name: ephUserData
+  name: eph-user-data
 spec:
   write_files:
   - path: /etc/kubernetes/admin.conf
@@ -12,7 +12,7 @@ spec:
       apiVersion: v1
       clusters:
       - cluster:
-          certificate-authority-data: {{ getTreeByPath "~G_v1_Secret" "ephCA" "data.crt" }}
+          certificate-authority-data: {{ getTreeByPath "~G_v1_Secret" "eph-ca" "data.crt" }}
           server: https://172.18.164.62:6443
         name: kubernetes
       contexts:
@@ -26,20 +26,20 @@ spec:
       users:
       - name: kubernetes-admin
         user:
-          client-certificate-data: {{ getTreeByPath "~G_v1_Secret" "ephAdmin" "data.crt" }}
-          client-key-data: {{ getTreeByPath "~G_v1_Secret" "ephAdmin" "data.key" }}
+          client-certificate-data: {{ getTreeByPath "~G_v1_Secret" "eph-admin" "data.crt" }}
+          client-key-data: {{ getTreeByPath "~G_v1_Secret" "eph-admin" "data.key" }}
   - path: /etc/kubernetes/pki/ca.crt
     encoding: base64
     owner: root:root
     permissions: "0640"
     content: |
-      {{ getTreeByPath "~G_v1_Secret" "ephCA" "data.crt" }}
+      {{ getTreeByPath "~G_v1_Secret" "eph-ca" "data.crt" }}
   - path: /etc/kubernetes/pki/ca.key
     encoding: base64
     owner: root:root
     permissions: "0600"
     content: |
-      {{ getTreeByPath "~G_v1_Secret" "ephCA" "data.key" }}
+      {{ getTreeByPath "~G_v1_Secret" "eph-ca" "data.key" }}
   - path: /tmp/konfigadm.yml
     owner: root:root
     permissions: "0640"
