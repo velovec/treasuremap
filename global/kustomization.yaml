@@ -1,0 +1,3 @@
+resources:
+  - metal3-ipa.yaml
+  - metal3-image.yaml

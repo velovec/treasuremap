@@ -1,0 +1,10 @@
+---
+apiVersion: airshipit.org/v1alpha1
+kind: Software
+metadata:
+  name: metal3-image
+spec:
+  repo: http://172.18.164.36:9999
+  files:
+    - xenial-server-cloudimg-amd64-disk1.img
+    - xenial-server-cloudimg-amd64-disk1.img.md5sum

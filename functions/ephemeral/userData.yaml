@@ -76,3 +76,8 @@ spec:
     - konfigadm apply --config=/tmp/konfigadm.yml
     - kubeadm init --config /tmp/kubeadm.yaml
     - kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+    - mkdir -p /opt/metal3-dev-env/ironic/html/images
+    - curl -L {{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-ipa" "spec.repo" }}/{{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-ipa" "spec.files[0]" }} -o /opt/metal3-dev-env/ironic/html/images/{{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-ipa" "spec.files[0]" }}
+    - curl -L {{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-ipa" "spec.repo" }}/{{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-ipa" "spec.files[1]" }} -o /opt/metal3-dev-env/ironic/html/images/{{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-ipa" "spec.files[1]" }}
+    - curl -L {{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-image" "spec.repo" }}/{{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-image" "spec.files[0]" }} -o /opt/metal3-dev-env/ironic/html/images/{{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-image" "spec.files[0]" }}
+    - curl -L {{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-image" "spec.repo" }}/{{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-image" "spec.files[1]" }} -o /opt/metal3-dev-env/ironic/html/images/{{ getTreeByPath "airshipit.org_v1alpha1_Software" "metal3-image" "spec.files[1]" }}

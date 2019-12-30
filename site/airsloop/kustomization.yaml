@@ -1,4 +1,5 @@
 resources:
+  - ../../global
   - ../certs
   - ../../functions/ephemeral
 transformers:
