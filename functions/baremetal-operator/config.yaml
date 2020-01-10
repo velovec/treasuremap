@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: baremetal-operator-config
+data:
+  operator_image: "quay.io/metal3-io/baremetal-operator:latest"
+
+  ironic_aio_image: "quay.io/metal3-io/ironic:latest"
+  ironic_inspector_image: "quay.io/metal3-io/ironic-inspector:latest"
+
+  ironic_mariadb_password: "e8ca990d79d351eacda0"
+
+  ironic_api_url: 'http://{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].ip_address" }}:6385/v1/'
+  ironic_inspector_url: 'http://{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].ip_address" }}:5050/v1/'
+  ironic_deploy_kernel_url: 'http://{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].ip_address" }}/images/ironic-python-agent.kernel'
+  ironic_deploy_ramdisk_url: 'http://{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].ip_address" }}/images/ironic-python-agent.initramfs'
+
+  ironic_dhcp_range: "172.22.0.10,172.22.0.100"

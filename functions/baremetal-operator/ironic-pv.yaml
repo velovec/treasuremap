@@ -1,0 +1,31 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: ironic-pv-volume
+  labels:
+    airshipit.org/stage: initinfra
+    type: local
+spec:
+  storageClassName: default
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/opt/metal3-dev-env/ironic/"
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ironic-pv-claim
+  labels:
+    airshipit.org/stage: initinfra
+spec:
+  storageClassName: default
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

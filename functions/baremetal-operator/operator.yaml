@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metal3-baremetal-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: metal3-baremetal-operator
+  template:
+    metadata:
+      labels:
+        name: metal3-baremetal-operator
+    spec:
+      serviceAccountName: metal3-baremetal-operator
+      containers:
+        - name: baremetal-operator
+          image: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.operator_image" }}'
+          ports:
+          - containerPort: 60000
+            name: metrics
+          command:
+          - /baremetal-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "baremetal-operator"
+            - name: DEPLOY_KERNEL_URL
+              value: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_deploy_kernel_url" }}'
+            - name: DEPLOY_RAMDISK_URL
+              value: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_deploy_ramdisk_url" }}'
+            - name: IRONIC_ENDPOINT
+              value: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_api_url" }}'
+            - name: IRONIC_INSPECTOR_ENDPOINT
+              value: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_inspector_url" }}'
+        # Temporary workaround to talk to an external Ironic process until Ironic is running in this pod.
+        - name: ironic-proxy
+          image: alpine/socat
+          command: ["socat", "tcp-listen:6385,fork,reuseaddr", "tcp-connect:172.22.0.1:6385"]
+          imagePullPolicy: Always
+        - name: ironic-inspector-proxy
+          image: alpine/socat
+          command: ["socat", "tcp-listen:5050,fork,reuseaddr", "tcp-connect:172.22.0.1:5050"]
+          imagePullPolicy: Always

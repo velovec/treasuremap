@@ -1,0 +1,6 @@
+resources:
+  - config.yaml
+  - rbac.yaml
+  - ironic-pv.yaml
+  - ironic.yaml
+  - operator.yaml

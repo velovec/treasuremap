@@ -1,0 +1,94 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ironic
+  labels:
+    airshipit.org/stage: initinfra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ironic
+  template:
+    metadata:
+      labels:
+        airshipit.org/stage: initinfra
+        name: ironic
+    spec:
+      hostNetwork: true
+      volumes:
+        - name: ironic-storage
+          persistentVolumeClaim:
+            claimName: ironic-pv-claim
+      containers:
+        - name: dnsmasq
+          image: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_aio_image" }}'
+          command: ["/bin/rundnsmasq"]
+          securityContext:
+            privileged: true
+          env:
+            - name: PROVISIONING_INTERFACE
+              value: '{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].link" }}'
+            - name: HTTP_PORT
+              value: '80'
+            - name: DHCP_RANGE
+              value: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_dhcp_range" }}'
+            - name: DNSMASQ_EXCEPT_INTERFACE
+              value: lo
+          volumeMounts:
+              - mountPath: "/shared"
+                name: ironic-storage
+        - name: httpd
+          image: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_aio_image" }}'
+          command: ["/bin/runhttpd"]
+          securityContext:
+            privileged: true
+          env:
+            - name: PROVISIONING_INTERFACE
+              value: '{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].link" }}'
+            - name: HTTP_PORT
+              value: '80'
+          volumeMounts:
+              - mountPath: "/shared"
+                name: ironic-storage
+        - name: mariadb
+          image: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_aio_image" }}'
+          command: ["/bin/runmariadb"]
+          securityContext:
+            privileged: true
+          env:
+            - name: MARIADB_PASSWORD
+              value: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_mariadb_password" }}'
+            - name: PROVISIONING_INTERFACE
+              value: '{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].link" }}'
+          volumeMounts:
+            - mountPath: "/shared"
+              name: ironic-storage
+            - mountPath: "/var/lib/mysql"
+              name: ironic-storage
+              subPath: mysql
+        - name: ironic
+          image: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_aio_image" }}'
+          securityContext:
+            privileged: true
+          env:
+            - name: MARIADB_PASSWORD
+              value: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_mariadb_password" }}'
+            - name: PROVISIONING_INTERFACE
+              value: '{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].link" }}'
+            - name: HTTP_PORT
+              value: '80'
+          volumeMounts:
+            - mountPath: "/shared"
+              name: ironic-storage
+        - name: ironic-inspector
+          image: '{{ getTreeByPath "~G_v1_ConfigMap" "baremetal-operator-config" "data.ironic_inspector_image" }}'
+          securityContext:
+            privileged: true
+          env:
+            - name: PROVISIONING_INTERFACE
+              value: '{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[1].link" }}'
+          volumeMounts:
+            - mountPath: "/shared"
+              name: ironic-storage
