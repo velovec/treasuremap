@@ -13,7 +13,7 @@ spec:
       clusters:
       - cluster:
           certificate-authority-data: {{ getTreeByPath "~G_v1_Secret" "eph-ca" "data.crt" }}
-          server: https://172.18.164.62:6443
+          server: https://{{ getTreeByPath "airshipit.org_v1alpha1_NodeNetInterface" "worker-node01" "spec.networks.[0].ip_address" }}:6443
         name: kubernetes
       contexts:
       - context:
