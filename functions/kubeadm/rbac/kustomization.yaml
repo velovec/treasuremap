@@ -1,0 +1,9 @@
+resources:
+  - cabpk-leader-election-role.yaml
+  - cabpk-leader-election-rolebinding.yaml
+  - cabpk-manager-role.yaml
+  - cabpk-manager-rolebinding.yaml
+  - cabpk-proxy-role.yaml
+  - cabpk-proxy-rolebinding.yaml
+commonLabels:
+  airshipit.org/stage: initinfra
