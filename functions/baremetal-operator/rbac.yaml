@@ -66,8 +66,10 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: metal3-baremetal-operator
+  namespace: default
 - kind: User
   name: developer
+  namespace: default
 roleRef:
   kind: ClusterRole
   name: metal3-baremetal-operator

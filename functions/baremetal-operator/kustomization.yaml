@@ -4,3 +4,5 @@ resources:
   - ironic-pv.yaml
   - ironic.yaml
   - operator.yaml
+commonLabels:
+  airshipit.org/stage: initinfra

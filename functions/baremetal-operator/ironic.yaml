@@ -3,8 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ironic
-  labels:
-    airshipit.org/stage: initinfra
 spec:
   replicas: 1
   selector:

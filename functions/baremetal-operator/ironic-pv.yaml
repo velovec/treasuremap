@@ -4,7 +4,6 @@ apiVersion: v1
 metadata:
   name: ironic-pv-volume
   labels:
-    airshipit.org/stage: initinfra
     type: local
 spec:
   storageClassName: default
@@ -20,8 +19,6 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: ironic-pv-claim
-  labels:
-    airshipit.org/stage: initinfra
 spec:
   storageClassName: default
   accessModes:
