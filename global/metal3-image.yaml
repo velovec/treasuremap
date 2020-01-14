@@ -3,6 +3,8 @@ apiVersion: airshipit.org/v1alpha1
 kind: Software
 metadata:
   name: metal3-image
+  labels:
+    airshipit.org/stage: isogen
 spec:
   repo: http://172.18.164.36:9999
   files:
