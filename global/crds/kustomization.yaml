@@ -1,4 +1,7 @@
 resources:
+  - baremetalclusters.infrastructure.cluster.x-k8s.io.yaml
   - baremetalhosts.metal3.io.yaml
+  - baremetalmachines.infrastructure.cluster.x-k8s.io.yaml
+  - baremetalmachinetemplates.infrastructure.cluster.x-k8s.io.yaml
   - kubeadmconfigs.bootstrap.cluster.x-k8s.io.yaml
   - kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io.yaml

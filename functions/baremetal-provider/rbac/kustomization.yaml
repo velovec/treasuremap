@@ -1,0 +1,7 @@
+resources:
+  - capbm-leader-election-role.yaml
+  - capbm-leader-election-rolebinding.yaml
+  - capbm-manager-role.yaml
+  - capbm-manager-rolebinding.yaml
+  - capbm-proxy-role.yaml
+  - capbm-proxy-rolebinding.yaml
