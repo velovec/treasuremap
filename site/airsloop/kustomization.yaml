@@ -3,5 +3,7 @@ resources:
   - ../certs
   - ../../functions/ephemeral
   - ../../functions/baremetal-operator
+  - ../../functions/baremetal-provider
+  - ../../functions/cluster-api
 transformers:
   - gotemplater.yaml
