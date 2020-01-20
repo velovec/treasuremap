@@ -9,3 +9,5 @@ resources:
   - machinedeployments.cluster.x-k8s.io.yaml
   - machines.cluster.x-k8s.io.yaml
   - machinesets.cluster.x-k8s.io.yaml
+commonLabels:
+  airshipit.org/stage: initinfra
